@@ -21,7 +21,7 @@
   <node pkg="interactive_robot" type="manipulation_service.py" name="manipulation_service" output="screen"/>
 
   <!-- Human hand tracking -->
-  <node pkg="interactive_robot" type="hand_tracking_service.py" name="handover_to_human_server" output="screen"/>
+  <node pkg="interactive_robot" type="hand_tracking_service.py" name="human_hand_tracking" output="screen"/>
 
   <!-- Give object to human -->
   <node pkg="interactive_robot" type="object_handover.py" name="object_handover" output="screen"/>
