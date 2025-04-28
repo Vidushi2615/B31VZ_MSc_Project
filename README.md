@@ -112,338 +112,197 @@
   
   ### 3.4. src/
   
-    #### 3.4.1. Source Files
-    
-    - **tracker_with_cloud_node.cpp**: Provides core functionalities for
-      > projecting 2D detections into 3D space, clustering, and bounding box
-      > generation; used internally by other nodes but not a standalone
-      > executable.
-    
-    - **object_localisation_server.cpp**: Source file for the Action server
-      > handling 3D localisation of a specified object.
-    
-    - **get_hand_position_3d_server.cpp**: Source file implementing a
-      > service server to project detected hand positions into 3D space.
+  #### 3.4.1. Source Files
+  
+  - **tracker_with_cloud_node.cpp**: Provides core functionalities for projecting 2D detections into 3D space, clustering, and bounding box generation; used internally by other nodes but not a standalone executable.
+  - **object_localisation_server.cpp**: Source file for the Action server handling 3D localisation of a specified object.
+  - **get_hand_position_3d_server.cpp**: Source file implementing a service server to project detected hand positions into 3D space.
   
   ### 3.5. include/
   
-    #### 3.5.1. Header Files
-    
-    > **tracker_with_cloud_node.h:** Header declarations associated with
-    > tracker_with_cloud_node.cpp.
+  #### 3.5.1. Header Files
+  
+  - **tracker_with_cloud_node.h:** Header declarations associated with tracker_with_cloud_node.cpp.
   
   ### 3.6. launch/
   
-  - **system.launch:** Main launch file to start the perception,
-    > manipulation, and handover systems.
-  
+  - **system.launch:** Main launch file to start the perception, manipulation, and handover systems.
   - **services.launch:** Launches all service nodes.
-  
-  - **collision.launch:** Sets up OctoMap-based collision environment
-    > using pre built static OctoMap.
-  
+  - **collision.launch:** Sets up OctoMap-based collision environment using pre built static OctoMap.
   - **map.launch**: Launches map server for static mapping.
-  
   - **world.launch**: Gazebo simulation world for the HSR robot.
   
   ### 3.7. config/
   
-  > Contains .yaml files for HSR configuration.
+  Contains .yaml files for HSR configuration.
   
   ### 3.8. maps/
   
-  > Contains the 3D Octomap and 2D map file for lab configuration.
+  Contains the 3D Octomap and 2D map file for lab configuration.
   
   ### 3.9. worlds/
   
-  > Contains the custom .world file used in gazebo simulation
+  Contains the custom .world file used in gazebo simulation
   
   ### 3.10. models/
   
-  > Contains the yolov8n.pt file for Yolo detections
+  Contains the yolov8n.pt file for Yolo detections
   
   ### 3.11. rviz/
   
-  > Contains the custom made .rviz file to subscribe to the correct topics
-  > for visual evaluation.
+  Contains the custom made .rviz file to subscribe to the correct topics for visual evaluation.
 
 ## 4. Main Nodes and Services 
+<div align="center">
 
-<table>
-<colgroup>
-<col style="width: 42%" />
-<col style="width: 1%" />
-<col style="width: 48%" />
-<col style="width: 7%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th colspan="2"><h3 id="node" class="unnumbered">Node</h3></th>
-<th><h3 id="description" class="unnumbered">Description</h3></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td colspan="2">/yolo_detector</td>
-<td>2D object detection using YOLOv8</td>
-<td></td>
-</tr>
-<tr class="even">
-<td colspan="2">/object_localisation</td>
-<td>Action server to localise objects in 3D</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td colspan="2">/get_object_marker</td>
-<td>Service to get the odom-frame pose of the detected object</td>
-<td></td>
-</tr>
-<tr class="even">
-<td colspan="2">/manipulate_object</td>
-<td>Service to move the arm to the target pose</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td colspan="2">/navigate_to_object</td>
-<td>Service to move the base at the target location</td>
-<td></td>
-</tr>
-<tr class="even">
-<td colspan="2">/human_hand_tracking</td>
-<td>Service to move the arm towards the human hand</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>/grasp_from_human</td>
-<td colspan="3">Service to grasp an object from a human hand</td>
-</tr>
-<tr class="even">
-<td>/release_object</td>
-<td colspan="3">Service to release the object to the human during
-handover</td>
-</tr>
-</tbody>
-</table>
+| Node | Description |
+|:----:|:-----------:|
+| /yolo_detector | 2D object detection using YOLOv8 |
+| /object_localisation | Action server to localise objects in 3D |
+| /get_object_marker | Service to get the odom-frame pose of the detected object |
+| /manipulate_object | Service to move the arm to the target pose |
+| /navigate_to_object | Service to move the base at the target location |
+| /human_hand_tracking | Service to move the arm towards the human hand |
+| /grasp_from_human | Service to grasp an object from a human hand |
+| /release_object | Service to release the object to the human during handover |
+</div>
+
+
 
 ## 5. Usage 
 
-### Launch Files
+### 5.1. Launch Files
 
-#### system.launch 
+#### 5.1.1. system.launch 
 
-- Launches the full robot system, including detection, localisation,
-  > manipulation, and handover services.
-
-- If working on simulation: comment the clock publisher node and
-  > uncomment the world.launch include inside **system.launch**.
-
+- Launches the full robot system, including detection, localisation, manipulation, and handover services.
+- If working on simulation: comment the clock publisher node and uncomment the world.launch include inside **system.launch**.
 - Command: **roslaunch interactive_robot system.launch**
 
-#### world.launch
+#### 5.1.2. world.launch
 
 - Launches the Gazebo simulation environment.
-
-- Replace the .world file with your own custom Gazebo world in the
-  > launch file.
-
+- Replace the .world file with your own custom Gazebo world in the launch file.
 - Command: **roslaunch interactive_robot world.launch**
 
-#### map.launch
+#### 5.1.3. map.launch
 
 - Launches the static map server to generate a new static OctoMap.
+- After generating the map: **rosrun map_server map_saver -f \~/your_map_folder/your_map_name**
 
-- After generating the map: **rosrun map_server map_saver -f
-  > \~/your_map_folder/your_map_name**
-
-#### collision.launch 
+#### 5.1.4. collision.launch 
 
 - Loads and publishes a prebuilt Octomap for collision avoidance.
-
 - Replace the .bt file with your own saved Octomap file.
-
 - Command: **roslaunch interactive_robot collision.launch**
 
-### Testing Each Node and Service
+### 5.2. Testing Each Node and Service
 
-> Once the system is up and running, you can use the following steps to
-> test each node and service.
+Once the system is up and running, you can use the following steps to test each node and service.
 
-#### /yolo_detector
+#### 5.2.1. /yolo_detector
 
 - Type: Node
-
 - How to check:
-
 - Open RViz or *rqt_image_view*
-
 - Subscribe to */yolo_detector/annotated_image*
-
 - Expected output: Bounding boxes drawn around detected objects.
+- Use **rostopic echo -n1 /detected_objects_2d** to get the values of the bounding box
 
-- Use **rostopic echo -n1 /detected_objects_2d** to get the values of
-  > the bounding box
-
-#### /object_localisation 
+#### 5.2.2. /object_localisation 
 
 - Type: Action
 
-- How to call: **rostopic pub /object_localisation/goal
-  > interactive_robot/ObjectLocalisationActionGoal \"object_name:
-  > \'bottle\'\"**
-
-- How to check: Monitor */object_localisation/feedback* and
-  > */object_localisation/result* topics.
-
+- How to call: **rostopic pub /object_localisation/goal interactive_robot/ObjectLocalisationActionGoal \"object_name: \'bottle\'\"**
+- How to check: Monitor */object_localisation/feedback* and */object_localisation/result* topics.
 - Expected output: Returns 3D pose of the specified object.
 
-#### /get_object_marker
+#### 5.2.3. /get_object_marker
 
 - Type: Service
-
-- How to call: **rosservice call /get_object_marker \"object_name:
-  > \'bottle\'\"**
-
-- How to check: Visualise */object_marker* topic in RViz (Marker
-  > message).
-
+- How to call: **rosservice call /get_object_marker \"object_name: \'bottle\'\"**
+- How to check: Visualise */object_marker* topic in RViz (Marker message).
 - Expected output: A sphere marker representing object position.
 
-#### /manipulate_object
+#### 5.2.4. /manipulate_object
 
 - Type: Service
-
 - How to call: Prepare a *geometry_msgs/PointStamped.*
-
-> **rosservice call /manipulate_object \"target:**
->
-> **header:**
->
-> **frame_id: \'odom\'**
->
-> **point:**
->
-> **x: 1.0**
->
-> **y: 0.5**
->
-> **z: 0.7\"**
-
+```bash
+rosservice call /manipulate_object "target:
+  header:
+    frame_id: 'odom'
+  point:
+    x: 1.0
+    y: 0.5
+    z: 0.7"
+```
 - How to check:
-
   - Observe the robot\'s arm moving towards the specified target.
-
   - Check */manip_target_marker* in RViz.
 
-#### /navigate_to_object
+#### 5.2.5. /navigate_to_object
 
 - Type: Service
-
 - How to call:
-
 - Send a target point:
-
-> **rosservice call /navigate_to_object \"target:**
->
-> **header:**
->
-> **frame_id: \'odom\'**
->
-> **point:**
->
-> **x: 2.0**
->
-> **y: 1.0**
->
-> **z: 0.0\"**
-
+```bash
+rosservice call /navigate_to_object \"target:
+  header:
+    frame_id: \'odom\'
+  point:
+    x: 2.0
+    y: 1.0
+    z: 0.0"
+```
 - How to check: Observe navigation goals being sent to */move_base*.
-
 - Expected output: Robot base moves to the target location.
 
-#### /human_hand_tracking
+#### 5.2.6. /human_hand_tracking
 
 - Type: Service
-
 - How to call: **rosservice call /human_hand_tracking**
+- How to check: Visualise */tracked_hand_point* in RViz (published as *PointStamped*).
+- Expected output: Robot arm approaches and moves near the detected right hand.
 
-- How to check: Visualise */tracked_hand_point* in RViz (published as
-  > *PointStamped*).
-
-- Expected output: Robot arm approaches and moves near the detected
-  > right hand.
-
-#### /grasp_from_human
+#### 5.2.7. /grasp_from_human
 
 - Type: Service
-
 - How to call: **rosservice call /grasp_from_human**
-
 - How to check: Monitor the wrist force sensor feedback.
+- Expected output: Robot grasps the object from human after detecting release.
 
-- Expected output: Robot grasps the object from human after detecting
-  > release.
-
-#### /release_object
+#### 5.2.8. /release_object
 
 - Type: Service
-
 - How to call: **rosservice call /release_object**
-
 - How to check: Observe the gripper opening after detecting human pull.
+- Expected output: Object released into human\'s hand and robot arm resets.
 
-- Expected output: Object released into human\'s hand and robot arm
-  > resets.
-
-#### /main_controller
+#### 5.2.9. /main_controller
 
 - Type: Node
-
-- Purpose: Executes the full sequence: object detection, navigation,
-  > grasping, and handover based on a given object and action.
-
-- How to launch: **rosrun interactive_robot main_controller.py
-  > \_object_name:=\'bottle\' \_action:=\'get bottle\'**
-
+- Purpose: Executes the full sequence: object detection, navigation, grasping, and handover based on a given object and action.
+- How to launch: **rosrun interactive_robot main_controller.py \_object_name:=\'bottle\' \_action:=\'get bottle\'**
 - How to test:
-
   - Set the parameters object_name and action.
-
-  - Action can be either \"get\" (to fetch an object) or \"keep\" (to
-    > place an object).
-
+  - Action can be either \"get\" (to fetch an object) or \"keep\" (to place an object).
 - Monitor:
-
   - Service calls and responses in terminal logs.
-
-  - Robot behaviour: detection, navigation, manipulation, and handover
-    > sequence.
-
+  - Robot behaviour: detection, navigation, manipulation, and handover sequence.
   - Verify visual feedback in RViz as mentioned in the above nodes.
-
-- Expected outcome: The robot will execute the task in sequential order
-  > based on the action
+- Expected outcome: The robot will execute the task in sequential order based on the action
 
 ## 6. Dependencies 
 
 - ROS Noetic
-
 - YOLOv8 (Ultralytics Python library)
-
 - MediaPipe (for hand tracking)
-
 - HSRB Interface SDK (hsrb_interface)
-
 - PCL, OpenCV, FilterPy (Kalman filter), tf2_ros
 
 ## 7. Notes
 
 - The robot operates in the odom frame for all transformations.
-
-- A working OctoMap collision environment is needed for safe
-  > manipulation.
-
-- The */listening_node* is provided for further integration of the
-  > system control based on voice commands. The */listening_node* would
-  > need some more work, and the */main_controller* would need
-  > modifications for complete integration.
+- A working OctoMap collision environment is needed for safe manipulation.
+- The */listening_node* is provided for further integration of the system control based on voice commands. The /listening_node* would need some more work, and the */main_controller* would need modifications for complete integration.
