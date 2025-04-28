@@ -13,7 +13,7 @@ Once you have ROS Noetic and HSR-related packages installed and running, you can
   First, clone this repository into your ROS workspace src/ folder:
   
   ```bash
-  cd \~/catkin_ws/src\
+  cd ~/catkin_ws/src\
   git clone https://github.com/Vidushi2615/B31VZ_MSc_Project.git
   ```
   
@@ -24,7 +24,7 @@ Once you have ROS Noetic and HSR-related packages installed and running, you can
   Use *rosdep* to automatically install missing ROS packages:
   
   ```bash
-  cd \~/catkin_ws\
+  cd ~/catkin_ws\
   rosdep install \--from-paths src \--ignore-src -r -y
   ```
 
@@ -79,7 +79,7 @@ Once you have ROS Noetic and HSR-related packages installed and running, you can
   Finally, build your catkin workspace:
   
   ```bash
-  cd \~/catkin_ws\
+  cd ~/catkin_ws\
   catkin_make\
   source devel/setup.bash
   ```
