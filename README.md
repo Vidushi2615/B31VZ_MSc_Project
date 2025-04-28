@@ -250,7 +250,7 @@ rosservice call /manipulate_object "target:
 - How to call:
 - Send a target point:
 ```bash
-rosservice call /navigate_to_object "target:
+rosservice call /navigate_to_object geometry_msgs/PointStamped "target:
   header:
     frame_id: 'odom'
   point:
