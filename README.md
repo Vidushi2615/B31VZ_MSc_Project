@@ -1,28 +1,19 @@
 # B31VZ_MSc_Project
 ## 1. Overview
 
-> This ROS package implements a complete pipeline for object detection,
-> 3D localisation, autonomous navigation, and human-robot handover tasks
-> using the Toyota Human Support Robot (HSR). It supports
-> voice-commanded object fetching and returning, leveraging YOLOv8 for
-> object detection, 3D point cloud localisation, and force-sensor-based
-> interaction during handovers.
->
-> The system architecture integrates perception, manipulation,
-> navigation, collision avoidance, and hand tracking modules into a
-> coherent behaviour pipeline.
+This ROS package implements a complete pipeline for object detection, 3D localisation, autonomous navigation, and human-robot handover tasks using the Toyota Human Support Robot (HSR). It supports voice-commanded object fetching and returning, leveraging YOLOv8 for object detection, 3D point cloud localisation, and force-sensor-based interaction during handovers.
+The system architecture integrates perception, manipulation, navigation, collision avoidance, and hand tracking modules into a coherent behaviour pipeline.
 
 ## 2.  Installation Guide 
 
-> Once you have ROS Noetic and HSR-related packages installed and
-> running, you can proceed with the installation.
+Once you have ROS Noetic and HSR-related packages installed and running, you can proceed with the installation.
 
   ### 2.1. Clone the Repository ([Link to the Repository](https://github.com/Vidushi2615/B31VZ_MSc_Project.git))
   
   First, clone this repository into your ROS workspace src/ folder:
   
-  > cd \~/catkin_ws/src\
-  > git clone https://github.com/Vidushi2615/B31VZ_MSc_Project.git
+  **cd \~/catkin_ws/src\
+  git clone https://github.com/Vidushi2615/B31VZ_MSc_Project.git**
   
   After cloning, build the workspace as explained below.
   
@@ -30,26 +21,26 @@
   
   Use *rosdep* to automatically install missing ROS packages:
   
-  > cd \~/catkin_ws\
-  > rosdep install \--from-paths src \--ignore-src -r -y
+  **cd \~/catkin_ws\
+  rosdep install \--from-paths src \--ignore-src -r -y**
 
   If *rosdep* is not initialised yet, run:
   
-  > sudo rosdep init\
-  > rosdep update
+  **sudo rosdep init\
+  rosdep update**
   
   ### 2.3. Install Required Python Packages
   
   Several Python packages are needed for YOLO detection, MediaPipe hand
   tracking, Kalman filtering, and computer vision:
   
-  > pip3 install ultralytics\
-  > pip3 install mediapipe\
-  > pip3 install filterpy\
-  > pip3 install opencv-python\
-  > pip3 install opencv-contrib-python\
-  > pip3 install numpy\
-  > pip3 install scipy
+  **pip3 install ultralytics\
+  pip3 install mediapipe\
+  pip3 install filterpy\
+  pip3 install opencv-python\
+  pip3 install opencv-contrib-python\
+  pip3 install numpy\
+  pip3 install scipy**
 
   Note:
   
@@ -61,25 +52,25 @@
   
   Install these ROS packages via apt if they are missing:
   
-  > sudo apt-get update**\
-  > sudo apt-get install ros-noetic-vision-msgs\
-  > sudo apt-get install ros-noetic-pcl-ros\
-  > sudo apt-get install ros-noetic-tf2-ros\
-  > sudo apt-get install ros-noetic-image-geometry\
-  > sudo apt-get install ros-noetic-message-filters\
-  > sudo apt-get install ros-noetic-cv-bridge\
-  > sudo apt-get install ros-noetic-octomap-msgs\
-  > sudo apt-get install ros-noetic-map-server\
-  > sudo apt-get install ros-noetic-move-base-msgs\
-  > sudo apt-get install ros-noetic-actionlib-msgs
+  **sudo apt-get update\
+  sudo apt-get install ros-noetic-vision-msgs\
+  sudo apt-get install ros-noetic-pcl-ros\
+  sudo apt-get install ros-noetic-tf2-ros\
+  sudo apt-get install ros-noetic-image-geometry\
+  sudo apt-get install ros-noetic-message-filters\
+  sudo apt-get install ros-noetic-cv-bridge\
+  sudo apt-get install ros-noetic-octomap-msgs\
+  sudo apt-get install ros-noetic-map-server\
+  sudo apt-get install ros-noetic-move-base-msgs\
+  sudo apt-get install ros-noetic-actionlib-msgs**
   
   ### 2.5. Build the Workspace
   
   Finally, build your catkin workspace:
   
-  > cd \~/catkin_ws\
-  > catkin_make\
-  > source devel/setup.bash
+  **cd \~/catkin_ws\
+  catkin_make\
+  source devel/setup.bash**
 
   ### 3.3. scripts/
 
