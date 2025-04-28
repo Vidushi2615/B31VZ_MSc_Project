@@ -191,7 +191,7 @@ Once you have ROS Noetic and HSR-related packages installed and running, you can
 #### 5.1.3. map.launch
 
 - Launches the static map server to generate a new static OctoMap.
-- After generating the map: ``` rosrun map_server map_saver -f \~/your_map_folder/your_map_name ```
+- After generating the map: ``` rosrun map_server map_saver -f ~/your_map_folder/your_map_name ```
 
 #### 5.1.4. collision.launch 
 
@@ -216,14 +216,14 @@ Once the system is up and running, you can use the following steps to test each 
 
 - Type: Action
 
-- How to call: ``` rostopic pub /object_localisation/goal interactive_robot/ObjectLocalisationActionGoal \"object_name: \'bottle\'\"```
+- How to call: ``` rostopic pub /object_localisation/goal interactive_robot/ObjectLocalisationActionGoal "object_name: 'bottle'"```
 - How to check: Monitor */object_localisation/feedback* and */object_localisation/result* topics.
 - Expected output: Returns 3D pose of the specified object.
 
 #### 5.2.3. /get_object_marker
 
 - Type: Service
-- How to call: ``` rosservice call /get_object_marker \"object_name: \'bottle\'\" ```
+- How to call: ``` rosservice call /get_object_marker "object_name: 'bottle'" ```
 - How to check: Visualise */object_marker* topic in RViz (Marker message).
 - Expected output: A sphere marker representing object position.
 
@@ -250,9 +250,9 @@ rosservice call /manipulate_object "target:
 - How to call:
 - Send a target point:
 ```bash
-rosservice call /navigate_to_object \"target:
+rosservice call /navigate_to_object "target:
   header:
-    frame_id: \'odom\'
+    frame_id: 'odom'
   point:
     x: 2.0
     y: 1.0
@@ -286,7 +286,7 @@ rosservice call /navigate_to_object \"target:
 
 - Type: Node
 - Purpose: Executes the full sequence: object detection, navigation, grasping, and handover based on a given object and action.
-- How to launch: ``` rosrun interactive_robot main_controller.py \_object_name:=\'bottle\' \_action:=\'get bottle\'```
+- How to launch: ``` rosrun interactive_robot main_controller.py _object_name:='bottle' _action:='get bottle'```
 - How to test:
   - Set the parameters object_name and action.
   - Action can be either \"get\" (to fetch an object) or \"keep\" (to place an object).
