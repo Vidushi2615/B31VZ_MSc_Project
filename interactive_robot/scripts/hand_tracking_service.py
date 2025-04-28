@@ -24,7 +24,7 @@ PALM_SIZE = 0.15
 
 class HandTrackerService:
     def __init__(self):
-        rospy.init_node('handover_to_human_server')
+        rospy.init_node('human_hand_tracking')
 
         self.bridge = CvBridge()
         self.lock = threading.Lock()
@@ -49,7 +49,7 @@ class HandTrackerService:
         self.marker_pub = rospy.Publisher('/tracked_hand_point', PointStamped, queue_size=1)
         self.tracked_image_pub = rospy.Publisher('/hand_tracking/image_annotated', Image, queue_size=1)
 
-        self.service = rospy.Service('/handover_to_human', Trigger, self.handle_handover)
+        self.service = rospy.Service('/human_hand_tracking', Trigger, self.handle_handover)
 
     def _init_kalman(self):
         kf = KalmanFilter(dim_x=6, dim_z=3)
