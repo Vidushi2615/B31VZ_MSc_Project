@@ -12,8 +12,10 @@ Once you have ROS Noetic and HSR-related packages installed and running, you can
   
   First, clone this repository into your ROS workspace src/ folder:
   
-  **cd \~/catkin_ws/src\
-  git clone https://github.com/Vidushi2615/B31VZ_MSc_Project.git**
+  ```bash
+  cd \~/catkin_ws/src\
+  git clone https://github.com/Vidushi2615/B31VZ_MSc_Project.git
+  ```
   
   After cloning, build the workspace as explained below.
   
@@ -21,26 +23,32 @@ Once you have ROS Noetic and HSR-related packages installed and running, you can
   
   Use *rosdep* to automatically install missing ROS packages:
   
-  **cd \~/catkin_ws\
-  rosdep install \--from-paths src \--ignore-src -r -y**
+  ```bash
+  cd \~/catkin_ws\
+  rosdep install \--from-paths src \--ignore-src -r -y
+  ```
 
   If *rosdep* is not initialised yet, run:
   
-  **sudo rosdep init\
-  rosdep update**
+  ```bash
+  sudo rosdep init\
+  rosdep update
+  ```
   
   ### 2.3. Install Required Python Packages
   
   Several Python packages are needed for YOLO detection, MediaPipe hand
   tracking, Kalman filtering, and computer vision:
   
-  **pip3 install ultralytics\
+  ```bash
+  pip3 install ultralytics\
   pip3 install mediapipe\
   pip3 install filterpy\
   pip3 install opencv-python\
   pip3 install opencv-contrib-python\
   pip3 install numpy\
-  pip3 install scipy**
+  pip3 install scipy
+  ```
 
   Note:
   
@@ -52,7 +60,8 @@ Once you have ROS Noetic and HSR-related packages installed and running, you can
   
   Install these ROS packages via apt if they are missing:
   
-  **sudo apt-get update\
+  ```bash
+  sudo apt-get update\
   sudo apt-get install ros-noetic-vision-msgs\
   sudo apt-get install ros-noetic-pcl-ros\
   sudo apt-get install ros-noetic-tf2-ros\
@@ -62,15 +71,18 @@ Once you have ROS Noetic and HSR-related packages installed and running, you can
   sudo apt-get install ros-noetic-octomap-msgs\
   sudo apt-get install ros-noetic-map-server\
   sudo apt-get install ros-noetic-move-base-msgs\
-  sudo apt-get install ros-noetic-actionlib-msgs**
+  sudo apt-get install ros-noetic-actionlib-msgs
+  ```
   
   ### 2.5. Build the Workspace
   
   Finally, build your catkin workspace:
   
-  **cd \~/catkin_ws\
+  ```bash
+  cd \~/catkin_ws\
   catkin_make\
-  source devel/setup.bash**
+  source devel/setup.bash
+  ```
 
   ### 3.3. scripts/
 
@@ -168,24 +180,24 @@ Once you have ROS Noetic and HSR-related packages installed and running, you can
 
 - Launches the full robot system, including detection, localisation, manipulation, and handover services.
 - If working on simulation: comment the clock publisher node and uncomment the world.launch include inside **system.launch**.
-- Command: **roslaunch interactive_robot system.launch**
+- Command: ```bash roslaunch interactive_robot system.launch ```
 
 #### 5.1.2. world.launch
 
 - Launches the Gazebo simulation environment.
 - Replace the .world file with your own custom Gazebo world in the launch file.
-- Command: **roslaunch interactive_robot world.launch**
+- Command: ```bash roslaunch interactive_robot world.launch ```
 
 #### 5.1.3. map.launch
 
 - Launches the static map server to generate a new static OctoMap.
-- After generating the map: **rosrun map_server map_saver -f \~/your_map_folder/your_map_name**
+- After generating the map: ```bash rosrun map_server map_saver -f \~/your_map_folder/your_map_name ```
 
 #### 5.1.4. collision.launch 
 
 - Loads and publishes a prebuilt Octomap for collision avoidance.
 - Replace the .bt file with your own saved Octomap file.
-- Command: **roslaunch interactive_robot collision.launch**
+- Command: ```bash roslaunch interactive_robot collision.launch ```
 
 ### 5.2. Testing Each Node and Service
 
@@ -198,20 +210,20 @@ Once the system is up and running, you can use the following steps to test each 
 - Open RViz or *rqt_image_view*
 - Subscribe to */yolo_detector/annotated_image*
 - Expected output: Bounding boxes drawn around detected objects.
-- Use **rostopic echo -n1 /detected_objects_2d** to get the values of the bounding box
+- Use ```bash rostopic echo -n1 /detected_objects_2d``` to get the values of the bounding box
 
 #### 5.2.2. /object_localisation 
 
 - Type: Action
 
-- How to call: **rostopic pub /object_localisation/goal interactive_robot/ObjectLocalisationActionGoal \"object_name: \'bottle\'\"**
+- How to call: ```bash rostopic pub /object_localisation/goal interactive_robot/ObjectLocalisationActionGoal \"object_name: \'bottle\'\"```
 - How to check: Monitor */object_localisation/feedback* and */object_localisation/result* topics.
 - Expected output: Returns 3D pose of the specified object.
 
 #### 5.2.3. /get_object_marker
 
 - Type: Service
-- How to call: **rosservice call /get_object_marker \"object_name: \'bottle\'\"**
+- How to call: ```bash rosservice call /get_object_marker \"object_name: \'bottle\'\" ```
 - How to check: Visualise */object_marker* topic in RViz (Marker message).
 - Expected output: A sphere marker representing object position.
 
@@ -252,21 +264,21 @@ rosservice call /navigate_to_object \"target:
 #### 5.2.6. /human_hand_tracking
 
 - Type: Service
-- How to call: **rosservice call /human_hand_tracking**
+- How to call: ```bash rosservice call /human_hand_tracking ```
 - How to check: Visualise */tracked_hand_point* in RViz (published as *PointStamped*).
 - Expected output: Robot arm approaches and moves near the detected right hand.
 
 #### 5.2.7. /grasp_from_human
 
 - Type: Service
-- How to call: **rosservice call /grasp_from_human**
+- How to call: ```bash rosservice call /grasp_from_human```
 - How to check: Monitor the wrist force sensor feedback.
 - Expected output: Robot grasps the object from human after detecting release.
 
 #### 5.2.8. /release_object
 
 - Type: Service
-- How to call: **rosservice call /release_object**
+- How to call: ```bash rosservice call /release_object ```
 - How to check: Observe the gripper opening after detecting human pull.
 - Expected output: Object released into human\'s hand and robot arm resets.
 
@@ -274,7 +286,7 @@ rosservice call /navigate_to_object \"target:
 
 - Type: Node
 - Purpose: Executes the full sequence: object detection, navigation, grasping, and handover based on a given object and action.
-- How to launch: **rosrun interactive_robot main_controller.py \_object_name:=\'bottle\' \_action:=\'get bottle\'**
+- How to launch: ```bash rosrun interactive_robot main_controller.py \_object_name:=\'bottle\' \_action:=\'get bottle\'```
 - How to test:
   - Set the parameters object_name and action.
   - Action can be either \"get\" (to fetch an object) or \"keep\" (to place an object).
