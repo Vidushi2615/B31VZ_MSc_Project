@@ -230,15 +230,24 @@ Once the system is up and running, you can use the following steps to test each 
 #### 5.2.4. /manipulate_object
 
 - Type: Service
-- How to call: Prepare a *geometry_msgs/PointStamped.*
+- How to call: Send a target pose
 ```bash
-rosservice call /manipulate_object "target:
+rosservice call /manipulate_object interactive_robot/ManipulateToObject "target:
   header:
+    stamp:
+      secs: 0
+      nsecs: 0
     frame_id: 'odom'
-  point:
-    x: 1.0
-    y: 0.5
-    z: 0.7"
+  pose:
+    position:
+      x: 1.0
+      y: 0.5
+      z: 0.7
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0"
 ```
 - How to check:
   - Observe the robot\'s arm moving towards the specified target.
@@ -247,16 +256,24 @@ rosservice call /manipulate_object "target:
 #### 5.2.5. /navigate_to_object
 
 - Type: Service
-- How to call:
-- Send a target point:
+- How to call: Send a target pose
 ```bash
-rosservice call /navigate_to_object geometry_msgs/PointStamped "target:
+rosservice call /navigate_to_object interactive_robot/NavigateToObject "target:
   header:
+    stamp:
+      secs: 0
+      nsecs: 0
     frame_id: 'odom'
-  point:
-    x: 2.0
-    y: 1.0
-    z: 0.0"
+  pose:
+    position:
+      x: 2.0
+      y: 1.0
+      z: 0.0
+    orientation:
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      w: 1.0"
 ```
 - How to check: Observe navigation goals being sent to */move_base*.
 - Expected output: Robot base moves to the target location.
