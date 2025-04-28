@@ -12,7 +12,7 @@
 > navigation, collision avoidance, and hand tracking modules into a
 > coherent behaviour pipeline.
 
-##  Installation Guide {#installation-guide}
+##  Installation Guide 
 
 > Once you have ROS Noetic and HSR-related packages installed and
 > running, you can proceed with the installation.
@@ -104,7 +104,7 @@ After cloning, build the workspace as explained below.
 >
 > **source devel/setup.bash**
 
-##  Package Structure {#package-structure}
+##  Package Structure 
 
 ### action/
 
@@ -230,7 +230,7 @@ After cloning, build the workspace as explained below.
 > Contains the custom made .rviz file to subscribe to the correct topics
 > for visual evaluation.
 
-##  Main Nodes and Services {#main-nodes-and-services}
+##  Main Nodes and Services 
 
 <table>
 <colgroup>
@@ -289,11 +289,11 @@ handover</td>
 </tbody>
 </table>
 
-##  Usage {#usage}
+##  Usage 
 
 ### Launch Files
 
-#### system.launch {#system.launch}
+#### system.launch 
 
 - Launches the full robot system, including detection, localisation,
   > manipulation, and handover services.
@@ -303,7 +303,7 @@ handover</td>
 
 - Command: **roslaunch interactive_robot system.launch**
 
-#### world.launch {#world.launch}
+#### world.launch
 
 - Launches the Gazebo simulation environment.
 
@@ -312,14 +312,14 @@ handover</td>
 
 - Command: **roslaunch interactive_robot world.launch**
 
-#### map.launch {#map.launch}
+#### map.launch
 
 - Launches the static map server to generate a new static OctoMap.
 
 - After generating the map: **rosrun map_server map_saver -f
   > \~/your_map_folder/your_map_name**
 
-#### collision.launch {#collision.launch}
+#### collision.launch 
 
 - Loads and publishes a prebuilt Octomap for collision avoidance.
 
@@ -347,7 +347,7 @@ handover</td>
 - Use **rostopic echo -n1 /detected_objects_2d** to get the values of
   > the bounding box
 
-#### /object_localisation (Action Server)
+#### /object_localisation 
 
 - Type: Action
 
@@ -487,7 +487,7 @@ handover</td>
 - Expected outcome: The robot will execute the task in sequential order
   > based on the action
 
-##  Dependencies {#dependencies}
+##  Dependencies 
 
 - ROS Noetic
 
@@ -499,7 +499,7 @@ handover</td>
 
 - PCL, OpenCV, FilterPy (Kalman filter), tf2_ros
 
-##  Notes {#notes}
+##  Notes
 
 - The robot operates in the odom frame for all transformations.
 
