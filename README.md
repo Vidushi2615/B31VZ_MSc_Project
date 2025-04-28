@@ -81,74 +81,34 @@
   > catkin_make\
   > source devel/setup.bash
 
-## 3. Package Structure 
-
-  ### 3.1. action/
-  
-  > **ObjectLocalisation.action:** Defines the goal, feedback, and result
-  > for the object localisation ActionServer.
-  
-  ### 3.2. srv/
-  
-  - **GetHand3D.srv**: Service to obtain the 3D position of the detected
-    > human hand from camera data.
-  
-  - **GetObjectMarker.srv**: Service to retrieve the pose of a localised
-    > object in the odom frame.
-  
-  - **ManipulateToObject.srv**: Service to move the robot\'s end-effector
-    > to a specified target position.
-  
-  - **NavigateToObject.srv**: Service to navigate the robot base towards
-    > an object with an offset.
-  
   ### 3.3. scripts/
 
   #### 3.3.1. Core Nodes
-  
-  - **yolo_detector.py**: Runs YOLOv8 object detection on head RGB camera
-    > images and publishes 2D detections.
-  
-  - **object_marker_server.py**: Service server that transforms and
-    > publishes object position markers.
+  - **yolo_detector.py**: Runs YOLOv8 object detection on head RGB camera images and publishes 2D detections.
+  - **object_marker_server.py**: Service server that transforms and publishes object position markers.
   
   #### 3.3.2. Behavioural Nodes
   
-  - **listening_node.py**: Parses voice commands into actions and object
-    > names.
-  
-  - **main_controller.py**: High-level node executing full task pipelines
-    > based on the parsed voice commands (fetch, handover).
+  - **listening_node.py**: Parses voice commands into actions and object names.
+  - **main_controller.py**: High-level node executing full task pipelines based on the parsed voice commands (fetch, handover).
   
   #### 3.3.3. Navigation and Manipulation
   
-  - **navigation_node.py**: Computes and publishes navigation goals at the
-    > target location.
-  
-  - **manipulation_service.py**: Moves the arm end-effector to the
-    > object\'s position and grasps.
+  - **navigation_node.py**: Computes and publishes navigation goals at the target location.
+  - **manipulation_service.py**: Moves the arm end-effector to the object\'s position and grasps.
   
   #### 3.3.4. Human Interaction and Handover
   
-  - **hand_tracking_service.py**: Tracks the right human hand in 3D using
-    > MediaPipe and guides the end-effector to handover position.
-  
-  - **grasp_from_human_service.py**: Grasp object from human by detecting
-    > force changes.
-  
-  - **object_handover.py**: Releases object to human by monitoring wrist
-    > force drop.
+  - **hand_tracking_service.py**: Tracks the right human hand in 3D using MediaPipe and guides the end-effector to handover position.
+  - **grasp_from_human_service.py**: Grasp object from human by detecting force changes.
+  - **object_handover.py**: Releases object to human by monitoring wrist force drop.
   
   #### 3.3.5. Utilities
   
-  - **clock_publisher.py**: Publishes /clock topic from joint_states to
-    > synchronise Gazebo simulation time.
-  
-  - **fix_octomap_centers.py**: Fixes timestamp and frame_id
-    > inconsistencies in OctoMap point clouds.
-  
-  - **voxel_filter_node.py**: Converts filtered pointcloud into collision
-    > map boxes for safe manipulation.
+  - **clock_publisher.py**: Publishes /clock topic from joint_states to synchronise Gazebo simulation time.
+  - **fix_octomap_centers.py**: Fixes timestamp and frame_id inconsistencies in OctoMap point clouds.
+  - **voxel_filter_node.py**: Converts filtered pointcloud into collision map boxes for safe manipulation.
+
   
   ### 3.4. src/
   
