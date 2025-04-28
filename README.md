@@ -250,7 +250,7 @@
 <td></td>
 </tr>
 <tr class="even">
-<td colspan="2">/handover_to_human</td>
+<td colspan="2">/human_hand_tracking</td>
 <td>Service to move the arm towards the human hand</td>
 <td></td>
 </tr>
@@ -401,11 +401,11 @@ handover</td>
 
 - Expected output: Robot base moves to the target location.
 
-#### /handover_to_human
+#### /human_hand_tracking
 
 - Type: Service
 
-- How to call: **rosservice call /handover_to_human**
+- How to call: **rosservice call /human_hand_tracking**
 
 - How to check: Visualise */tracked_hand_point* in RViz (published as
   > *PointStamped*).
