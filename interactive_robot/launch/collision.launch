@@ -1,0 +1,16 @@
+<launch>
+  <!-- Argument to specify the path to your saved OctoMap file -->
+  <arg name="map_file" default="$(find interactive_robot)/maps/3d_map.bt" />
+  <arg name="map_frame" default="odom" />
+  <arg name="resolution" default="0.025" />
+
+  <!-- OctoMap server with remapped output for hsrb_interface -->
+  <node name="octomap_server" pkg="octomap_server" type="octomap_server_node" output="screen">
+    <param name="frame_id" value="$(arg map_frame)"/>
+    <param name="resolution" value="$(arg resolution)"/>
+    <param name="latch" value="true"/>
+    <param name="binary" value="true"/>
+    <param name="map_file" value="$(arg map_file)"/>
+  </node>
+
+</launch>

@@ -1,0 +1,8 @@
+# Goal
+string object_name
+---
+# Result
+geometry_msgs/PointStamped position
+---
+# Feedback
+string status

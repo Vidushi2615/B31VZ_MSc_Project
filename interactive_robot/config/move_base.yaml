@@ -1,0 +1,135 @@
+# Planner selection
+base_global_planner: "tmc_base_path_planner_plugin/BasePathPlannerPlugin"
+
+# If you use tmc_path_selector_plugin, you should specify "path_data_root_dir".
+# base_global_planner: "tmc_path_selector_plugin/PathSelectorPlugin"
+
+#base_local_planner: "tmc_omni_path_follower_plugin/OmniPathFollowerPlugin"
+base_local_planner: "tmc_base_path_follower_plugin/BasePathFollowerPlugin"
+
+# Oscillation
+oscillation_timeout: 10.0
+oscillation_distance: 0.5
+
+# Global planner
+planner_frequency: 10.0
+planner_patience: 1.0
+
+static_map_potential_width: 3.0
+base_path_planner:
+  type: "astar_path_planner"
+  astar_path_planner:
+    exclusive_size: 0.2
+    potential_size: 0.3
+    single_cost: 50
+    diagonal_cost: 71
+    cost_factor: 150.0
+    cost_unknown: 0
+    cost_on_preferred_path: 0
+    cost_around_preferred_path: 0
+  map_filter:
+    map_filter_range_around_start: 0.1
+    map_filter_range_around_goal: 0.5
+    map_filter_distance_goal_limit: 1.0
+  path_updater:
+    distance_on_prev_path: 0.15
+    grid_error: 0.06
+    same_point_num_merge_path: 3
+
+path_selector:
+  astar_path_selector:
+    start_point_search_range: 1.00
+    goal_point_search_range: 1.00
+    connection_distance_threshold: 0.05
+    connection_angle_threshold: 0.1745
+    out_path_cost_factor: 20.0
+  # If you use tmc_path_selector_plugin, you should to specify "path_data_root_dir".
+  path_data_root_dir: "/etc/opt/tmc/robot/conf.d/route/402"
+
+# Local planner
+controller_frequency: 10.0
+controller_patience: 5.0
+
+omni_path_follower:
+  base_max_linear_velocity: 0.6
+  base_max_angular_velocity: 2.0
+  base_max_linear_acceleration: 1.0
+  base_max_angular_acceleration: 5.0
+  base_linear_deceleration_near_goal: 0.8
+  base_linear_velocity_margin: 0.05
+  interpolation_number: 10
+  goal_area_length: 0.5
+  goal_line_length: 0.2
+  goal_stop_error_length: 0.04
+  goal_stop_error_angle: 0.04
+  path_length_threshold: 1.0
+  linear_p_gain: 0.5
+  angular_p_gain: 1.0
+  goal_angle_gain: 0.8
+  nearest_path_point_partial_search_range: 0.5
+  nearest_path_point_partial_search_permit_error: 0.5
+  base_velocity_optimizer:
+    collision_score_threshold: 0.0
+    search_direction_range: 1.57
+    avoidance_direction_offset: 0.0
+  collision_estimator:
+    collision_area_radius: 0.25
+    collision_area_increase_rate: 0.45
+    estimation_time: 1.0
+  obstacle_converter:
+    filter_leaf_size: 0.02
+    filter_area_radius: 1.5
+
+base_path_follower:
+  global_pose_timeout: 1.0
+  move_model_name: "diff_drive"
+  omni_velocity_calculator:
+    max_linear_velocity: 0.6
+    max_angular_velocity: 2.0
+    max_linear_acceleration: 1.0
+    max_angular_acceleration: 5.0
+    linear_deceleration_near_goal: 0.8
+    linear_velocity_margin: 0.05
+    path_length_threshold: 1.0
+    linear_p_gain: 1.0
+    angular_p_gain: 1.0
+    goal_angle_gain: 0.8
+  diff_drive_velocity_calculator:
+    max_linear_velocity: 0.6
+    max_angular_velocity: 2.0
+    max_linear_acceleration: 1.0
+    max_angular_acceleration: 5.0
+    linear_deceleration_near_goal: 1.2
+    linear_velocity_margin: 0.05
+    linear_alpha_gain: 3.0
+    linear_beta_gain: 1.5
+    angle_error_angular_velocity_rate: 1.0
+    spin_start_error_angle: 0.85
+    spin_end_error_angle: 0.03
+    spin_max_angular_velocity: 0.8
+    spin_min_angular_velocity: 0.05
+  path_info_creator:
+    interpolation_number: 10
+    max_linear_velocity: 0.6
+  omni_goal_checker:
+    goal_area_length: 0.5
+    goal_line_length: 0.2
+    goal_stop_error_length: 0.04
+    goal_stop_error_angle: 0.04
+  diff_drive_goal_checker:
+    goal_area_length: 0.5
+    goal_line_length: 0.05
+    goal_stop_error_angle: 0.04
+  nearest_path_point_searcher:
+    partial_search_range: 0.5
+    partial_search_permit_error: 0.5
+  use_path_transit_velocity: true
+  path_transit_velocity_calculator:
+    max_linear_velocity: 0.6
+    min_linear_velocity: 0.45
+    max_angular_velocity: 0.8
+    max_linear_acceleration: 0.25
+    max_linear_deceleration: 0.25
+    max_angular_acceleration: 0.5
+    max_angular_deceleration: 0.5
+    transit_velocity_angular_velocity_ratio: 1.0

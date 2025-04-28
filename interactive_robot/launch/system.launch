@@ -1,0 +1,17 @@
+<launch>
+  <!-- <include file="$(find interactive_robot)/launch/world.launch"/> -->
+  <node pkg="interactive_robot" type="clock_publisher.py" name="clock_publisher_node" output="screen"/>
+
+  <node name="rviz"
+        pkg="rviz"
+        type="rviz"
+        output="screen"
+        args="-d $(find interactive_robot)/rviz/final_rviz_conf.rviz" />
+
+  <node pkg="interactive_robot" type="object_localisation_server" name="object_localisation_server" output="screen"/>
+
+  <include file="$(find interactive_robot)/launch/services.launch"/>
+
+  <include file="$(find interactive_robot)/launch/collision.launch"/>
+
+</launch>

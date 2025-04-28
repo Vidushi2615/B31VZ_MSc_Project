@@ -1,0 +1,32 @@
+<launch>
+  <!-- Object name parameter -->
+  <param name="object_name" value="bottle" />
+
+  <!-- Object detection node -->
+  <node pkg="interactive_robot" type="yolo_detector.py" name="yolo_detector" output="screen"/>
+
+  <!-- Object localisation action server -->
+  <node pkg="interactive_robot" type="object_marker_server.py" name="object_marker_service_node" output="screen"/>
+
+  <!-- Navigation service server -->
+  <node pkg="interactive_robot" type="navigation_node.py" name="navigation_node" output="screen"/>
+  
+  <!-- Publish Octomap Live -->
+  <node pkg="interactive_robot" type="fix_octomap_centers.py" name="octomap_center_header_fixer" output="screen"/>
+
+  <!-- Integrate it into hsrb_mode -->
+  <node pkg="interactive_robot" type="voxel_filter_node.py" name="voxel_collision_map_publisher" output="screen"/>
+
+  <!-- Manipulation and Grasp -->
+  <node pkg="interactive_robot" type="manipulation_service.py" name="manipulation_service" output="screen"/>
+
+  <!-- Human hand tracking -->
+  <node pkg="interactive_robot" type="hand_tracking_service.py" name="handover_to_human_server" output="screen"/>
+
+  <!-- Give object to human -->
+  <node pkg="interactive_robot" type="object_handover.py" name="object_handover" output="screen"/>
+
+  <!-- Take object from human -->
+  <node pkg="interactive_robot" type="grasp_from_human_service.py" name="grasp_from_human_service" output="screen"/>
+
+</launch>

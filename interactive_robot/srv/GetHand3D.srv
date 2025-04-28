@@ -1,0 +1,5 @@
+sensor_msgs/CameraInfo cam_info
+sensor_msgs/PointCloud2 cloud
+vision_msgs/Detection2DArray detections
+---
+geometry_msgs/PointStamped point
